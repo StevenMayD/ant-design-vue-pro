@@ -9,7 +9,8 @@ import store from "./store";
 // import Button from 'ant-design-vue/lib/button';
 
 // 配置babel后可以这样统一简写引入 { Button, Input }
-import { Button } from 'ant-design-vue';
+// 引入并注册Layout，用于使用sider，header，footer; 引入Drawer用于使用<a-drawer>
+import { Button, Layout, Icon, Drawer, Radio } from "ant-design-vue";
 
 /*
   webpack配置: css配置
@@ -36,9 +37,13 @@ Vue.config.productionTip = false;
 
 // 全局注册组件 以供全局使用
 // Vue.use(Antd)
-Vue.use(Button)
+Vue.use(Button);
+Vue.use(Layout);
+Vue.use(Icon);
+Vue.use(Drawer);
+Vue.use(Radio);
 
-new Vue({ 
+new Vue({
   router,
   store,
   render: (h) => h(App),
