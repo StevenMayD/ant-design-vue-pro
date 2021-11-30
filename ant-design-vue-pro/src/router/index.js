@@ -3,6 +3,11 @@ import Router from "vue-router";
 import NProgress from "nprogress"; // 路由加载动画效果库
 import "nprogress/nprogress.css"; // 加载nprogress的样式
 import NotFound from "../views/404.vue";
+import Forbidden from "../views/403.vue";
+import findLast from "lodash/findLast"; // Lodash 消除了处理数组的麻烦，从而简化了 JavaScript、 数字、对象、字符串等的操作
+import { check, isLogin } from "../utils/auth";
+import { notification } from "ant-design-vue";
+
 // import { from } from "core-js/core/array";
 // import RenderRouterView from '../components/RenderRouterView'
 
@@ -50,6 +55,8 @@ const routes = [
   // 仪表盘和表单相关路由
   {
     path: "/",
+    // 路由上配置权限信息: "user", "admin"的角色 可以访问
+    meta: { authority: ["user", "admin"] },
     component: () =>
       import(/* webpackChunkName: "layout" */ "../layouts/BasicLayout"),
     children: [
@@ -80,7 +87,7 @@ const routes = [
       {
         path: "/form",
         name: "form",
-        meta: { icon: "form", title: "表单" },
+        meta: { icon: "form", title: "表单", authority: ["admin"] },
         component: { render: (h) => h("router-view") },
         children: [
           // 基础表单
@@ -138,7 +145,12 @@ const routes = [
       },
     ],
   },
-
+  {
+    path: "/403",
+    name: "403",
+    hideInMenu: true,
+    component: Forbidden,
+  },
   // 通配符路由 ： 如果没有找到路由地址，会进入通配符， 一般走向404 给与用户一个反馈
   {
     path: "*",
@@ -160,6 +172,36 @@ router.beforeEach((to, from, next) => {
   if (to.path !== from.path) {
     NProgress.start(); // progress效果开始
   }
+  /* 获取 即将去的路由to的最近的一个配备了访问权限的路由的权限
+    findLast 查找符合条件的最近的一个 ，属于lodash库的方法
+    to.matched 路由自带的方法，得到路由to匹配到的所有路由信息
+    record.meta.authority 能获取到该路由最邻近的路由权限信息
+  */
+  const record = findLast(to.matched, (record) => record.meta.authority);
+  // 跳转路由前进行权限校验
+  if (record && !check(record.meta.authority)) {
+    // 没权限
+    if (!isLogin() && to.path !== "/user/login") {
+      // 已登录 跳转登录页
+      next({
+        path: "/user/login",
+      });
+    } else if (to.path !== "/403") {
+      /* 消息提示框组件
+      官网使用的是 this.$notification[type]形式， 由于this.$是需要将组件注入到vue main.js中，才能使用，这是这里我们需要手动 import { notification }
+      */
+      notification.error({
+        message: "403",
+        description: "你没有权限访问，请联系管理咨询",
+      });
+      // 未登录 跳转403页（无权限访问页面）
+      next({
+        path: "/403",
+      });
+    }
+    NProgress.done();
+  }
+  // 有权限则 直接跳转
   next();
 });
 

@@ -85,6 +85,7 @@
 
 // 非耦合，写在独立文件SubMenu中的写法
 import SubMenu from "./SubMenu";
+import { check } from "../utils/auth";
 
 export default {
   // 通过emits: 向外界传参
@@ -124,8 +125,11 @@ export default {
     },
     getMenuData(routes = [], parentKeys = [], selectedKey) {
       const menuData = [];
-      // 按照定好的规则(有name字段 且 hideInMenu字段为true时下加载) 循环递归解析路由结构
-      routes.forEach((item) => {
+      for (let item of routes) {
+        if (item.meta && item.meta.authority && !check(item.meta.authority)) {
+          break;
+        }
+        // 按照定好的规则(有name字段 且 hideInMenu字段为true时下加载) 循环递归解析路由结构
         if (item.name && !item.hideInMenu) {
           this.openKeysMap[item.path] = parentKeys;
           this.selectedKeysMap[item.path] = [selectedKey || item.path];
@@ -153,7 +157,7 @@ export default {
             ...this.getMenuData(item.children, [...parentKeys, item.path])
           );
         }
-      });
+      }
       return menuData;
     },
   },
