@@ -10,8 +10,15 @@ Vue.use(Router);
 
 const routes = [
   // 先写登录注册的路由，为了方便扩展 写嵌套路由
+  /* 将路由的数据 通过递归的方法 渲染到菜单组件上
+    1、hideInMenu 标志位 用于过滤 不需要显示在菜单上的的数据
+    2、可以通过约定 使有name字段的路由，可以渲染到菜单上
+    3、hideChildrenInMenu，标志位 使不显示子路由的到菜单上
+    4、meta字段 用于添加一些原信息
+   */
   {
     path: "/user",
+    hideInMenu: true, // 标志位 用于过滤 不需要显示在菜单上的的数据
     // 通过加载 http://localhost:8080/user/login  访问路由地址
     // component: RenderRouterView,  // 专门建一个组件RenderRouterView 来加载 route view
     // component: { render: h => h("router-view") }, // 通过render函数写法更简便，无需创建RenderRouterView组件(因为组件里的template和JSX本质上会被转义成render函数)
@@ -54,12 +61,14 @@ const routes = [
       {
         path: "/dashboard",
         name: "dashboard",
+        meta: { icon: "dashboard", title: "仪表盘" }, // meta字段 用于添加一些原信息：图标，标题
         component: { render: (h) => h("router-view") },
         children: [
           // 仪表盘分析页
           {
             path: "/dashboard/analysis",
             name: "analysis",
+            meta: { title: "分析页" },
             component: () =>
               import(
                 /* webpackChunkName: "dashboard" */ "../views/Dashboard/Analysis"
@@ -71,12 +80,14 @@ const routes = [
       {
         path: "/form",
         name: "form",
+        meta: { icon: "form", title: "表单" },
         component: { render: (h) => h("router-view") },
         children: [
           // 基础表单
           {
             path: "/form/basic-form",
             name: "basicform",
+            meta: { title: "基础表单" },
             component: () =>
               import(/* webpackChunkName: "form" */ "../views/Forms/BasicForm"),
           },
@@ -84,10 +95,10 @@ const routes = [
           {
             path: "/form/step-form",
             name: "stepform",
+            meta: { title: "分布表单" },
+            hideChildrenInMenu: true,
             component: () =>
-              import(
-                /* webpackChunkName: "form" */ "../views/Forms/StepForm/index"
-              ), // 需要一个挂载点
+              import(/* webpackChunkName: "form" */ "../views/Forms/StepForm"), // 需要一个挂载点
             // 内部嵌套子路由
             children: [
               {
@@ -106,7 +117,7 @@ const routes = [
               // 确认页
               {
                 path: "/form/step-form/confirm",
-                name: "info",
+                name: "confirm",
                 component: () =>
                   import(
                     /* webpackChunkName: "form" */ "../views/Forms/StepForm/Step2"
@@ -115,7 +126,7 @@ const routes = [
               // 结果页
               {
                 path: "/form/step-form/result",
-                name: "info",
+                name: "result",
                 component: () =>
                   import(
                     /* webpackChunkName: "form" */ "../views/Forms/StepForm/Step3"
@@ -132,6 +143,7 @@ const routes = [
   {
     path: "*",
     name: "404",
+    hideInMenu: true,
     component: NotFound,
   },
 ];

@@ -1,13 +1,9 @@
 <template>
-  <div>步骤2</div>
+  <div>第二步</div>
 </template>
 
 <script>
-export default {
-  
-}
+export default {};
 </script>
 
-<style>
-
-</style>
+<style></style>

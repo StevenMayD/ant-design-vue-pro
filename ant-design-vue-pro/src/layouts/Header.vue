@@ -8,7 +8,7 @@
 export default {};
 </script>
 
-<style scope>
+<style scoped>
 .header {
   float: right; /* 浮动到右边 */
 }

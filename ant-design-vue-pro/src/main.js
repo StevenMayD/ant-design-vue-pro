@@ -10,7 +10,7 @@ import store from "./store";
 
 // 配置babel后可以这样统一简写引入 { Button, Input }
 // 引入并注册Layout，用于使用sider，header，footer; 引入Drawer用于使用<a-drawer>
-import { Button, Layout, Icon, Drawer, Radio } from "ant-design-vue";
+import { Button, Layout, Icon, Drawer, Radio, Menu } from "ant-design-vue";
 
 /*
   webpack配置: css配置
@@ -42,6 +42,7 @@ Vue.use(Layout);
 Vue.use(Icon);
 Vue.use(Drawer);
 Vue.use(Radio);
+Vue.use(Menu);
 
 new Vue({
   router,
