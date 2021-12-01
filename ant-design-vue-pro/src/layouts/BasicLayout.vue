@@ -29,8 +29,12 @@
       <a-layout>
         <a-layout-header style="background: #fff; padding: 0">
           <Header />
-          <!-- Icon需要去引入和注册 Vue.use(Icon); -->
+          <!-- Icon需要去引入和注册 Vue.use(Icon); 
+              将缩放组件进行权限控制(通过指令式权限控制实现的v-auth) 并设置为只有管理员才能看见操作
+              权限指令 有个弊端，权限指令是首次加载后就决定了页面removeChild移除了页面标签，无法动态控制，当用户角色和权限变化后，页面无从改变
+          -->
           <a-icon
+            v-auth="['admin']"
             class="trigger"
             :type="collapsed ? 'menu-unfold' : 'menu-fold'"
             @click="collapsed = !collapsed"
@@ -44,7 +48,10 @@
         </a-layout-footer>
       </a-layout>
     </a-layout>
-    <SettingDrawer />
+    <!-- 将抽屉组件放置在权限里(作为Authorized组件(通过函数式权限控制实现的)的子组件) 并设置为只有管理员才能看见操作 -->
+    <Authorized :authority="['admin']">
+      <SettingDrawer />
+    </Authorized>
   </div>
 </template>
 

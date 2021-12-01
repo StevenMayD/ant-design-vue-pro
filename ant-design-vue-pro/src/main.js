@@ -12,6 +12,9 @@ import store from "./store";
 // 引入并注册Layout，用于使用sider，header，footer; 引入Drawer用于使用<a-drawer>
 import { Button, Layout, Icon, Drawer, Radio, Menu } from "ant-design-vue";
 
+import Authorized from "./components/Authorized"; // 组件式权限控制
+import Auth from "./directives/auth"; //指令式权限控制
+
 /*
   webpack配置: css配置
   引入ant design的样式 
@@ -43,6 +46,10 @@ Vue.use(Icon);
 Vue.use(Drawer);
 Vue.use(Radio);
 Vue.use(Menu);
+// 自定义的组件(Vue文件) 注册的写法
+Vue.component("Authorized", Authorized);
+// 组定义指令(js文件) 注册的写法
+Vue.use(Auth);
 
 new Vue({
   router,
