@@ -1,7 +1,12 @@
 <!-- 图标组件 -->
 
 <template>
-  <!-- 知识点：ref  -->
+  <!-- 知识点：ref 
+   在JavaScript中需要通过document.querySelector("#demo")来获取dom节点，然后再获取这个节点的值。
+  在Vue中，我们不用获取dom节点，元素绑定ref之后，直接通过this.$refs即可调用，这样可以减少获取dom节点的消耗。
+  ref被用来给元素或子组件注册引用信息。引用信息将会注册在父组件的 $refs对象上。
+  如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素；如果用在子组件上，引用就指向该子组件实例
+   -->
   <div ref="chartDom"></div>
 </template>
 
