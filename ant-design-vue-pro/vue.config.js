@@ -20,7 +20,8 @@ module.exports = {
           if (req.headers.accept.indexOf("html") !== -1) {
             console.log("Skipping proxy for browser request.");
             return "/index.html";
-          } else {
+          } else if (process.env.MOCK !== "none") {
+            // 请求环境判断 为mock请求时 就做如下处理：
             // 当api请求时，可以拿到url的链接
             // 将请求地址 /api/dashboard/chart， 解析拼接成 dashboard_chart 文件名
             const name = req.path.split("/api/")[1].split("/").join("_");
