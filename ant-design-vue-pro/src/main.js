@@ -10,7 +10,16 @@ import store from "./store";
 
 // 配置babel后可以这样统一简写引入 { Button, Input }
 // 引入并注册Layout，用于使用sider，header，footer; 引入Drawer用于使用<a-drawer>
-import { Button, Layout, Icon, Drawer, Radio, Menu } from "ant-design-vue";
+import {
+  Button,
+  Layout,
+  Icon,
+  Drawer,
+  Radio,
+  Menu,
+  Form,
+  Input,
+} from "ant-design-vue";
 
 import Authorized from "./components/Authorized"; // 组件式权限控制
 import Auth from "./directives/auth"; //指令式权限控制
@@ -50,6 +59,8 @@ Vue.use(Menu);
 Vue.component("Authorized", Authorized);
 // 组定义指令(js文件) 注册的写法
 Vue.use(Auth);
+Vue.use(Form);
+Vue.use(Input);
 
 new Vue({
   router,
