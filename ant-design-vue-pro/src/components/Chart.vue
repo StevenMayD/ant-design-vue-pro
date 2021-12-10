@@ -65,7 +65,7 @@ export default {
   },
   // 组件销毁方法
   beforeDestroy() {
-    removeListener(this.$$refs.chartDom, this.resize); // 移除监听事件
+    removeListener(this.$refs.chartDom, this.resize); // 移除监听事件
     this.myChart.dispose(); // 封装三方库时注意：在组件销毁时，要销毁组件中创建的实例对象，防止内存泄漏
     this.myChart = null; // 指针nil化
   },

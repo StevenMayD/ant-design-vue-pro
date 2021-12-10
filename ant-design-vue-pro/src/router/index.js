@@ -102,7 +102,7 @@ const routes = [
           {
             path: "/form/step-form",
             name: "stepform",
-            meta: { title: "分布表单" },
+            meta: { title: "分步表单" },
             hideChildrenInMenu: true,
             component: () =>
               import(/* webpackChunkName: "form" */ "../views/Forms/StepForm"), // 需要一个挂载点

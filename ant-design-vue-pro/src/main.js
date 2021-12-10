@@ -1,7 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import store from "./store";
+import store from "./store"; // 这样能直接找到store文件夹下的index.js文件，也可以精确指定 ./store/index.js
 
 // 开始在入口文件里引入组件
 // import Antd from 'ant-design-vue';
