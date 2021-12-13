@@ -19,6 +19,7 @@ import {
   Menu,
   Form,
   Input,
+  Select,
 } from "ant-design-vue";
 
 import Authorized from "./components/Authorized"; // 组件式权限控制
@@ -61,6 +62,7 @@ Vue.component("Authorized", Authorized);
 Vue.use(Auth);
 Vue.use(Form);
 Vue.use(Input);
+Vue.use(Select);
 
 new Vue({
   router,

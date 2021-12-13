@@ -4,6 +4,10 @@ import request from "../../utils/request"; // 需要向后端发请求
 const state = {
   step: {
     payAccount: "默认账号", // 付款账号
+    receiveAccount: {
+      type: "alipay",
+      number: "",
+    },
   },
 };
 
