@@ -1,6 +1,12 @@
 <template>
-  <!-- 分析页使用chart图表组件 -->
-  <Chart :option="chartOption" style="height: 400px" />
+  <div>
+    <!-- 显示做了国际化的label -->
+    {{ $t("message")["app.dashboard.analysis.timeLabel"] }}
+    <!-- 引入日历组件: 提现路由切换国际化语言的配置 -->
+    <a-date-picker></a-date-picker>
+    <!-- 分析页使用chart图表组件 -->
+    <Chart :option="chartOption" style="height: 400px" />
+  </div>
 </template>
 
 <script>

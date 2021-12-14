@@ -2,6 +2,10 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store"; // 这样能直接找到store文件夹下的index.js文件，也可以精确指定 ./store/index.js
+import VueI18 from "vue-i18n"; // 引入 针对自定义封装的组件 做国际化的库
+import enUS from "./locale/enUS"; // 导入本地国际化语言包
+import zhCN from "./locale/zhCN";
+import queryString from "query-string"; // 解析url的第三方库
 
 // 开始在入口文件里引入组件
 // import Antd from 'ant-design-vue';
@@ -20,6 +24,9 @@ import {
   Form,
   Input,
   Select,
+  LocaleProvider,
+  Dropdown,
+  DatePicker,
 } from "ant-design-vue";
 
 import Authorized from "./components/Authorized"; // 组件式权限控制
@@ -63,6 +70,20 @@ Vue.use(Auth);
 Vue.use(Form);
 Vue.use(Input);
 Vue.use(Select);
+Vue.use(LocaleProvider); // 注册组件
+Vue.use(Dropdown); // 下拉框
+Vue.use(DatePicker); //日历组件
+Vue.use(VueI18);
+
+const i18n = new VueI18({
+  // 从url中取语言参数 需要用到一个三方库解析url
+  locale: queryString.parse(location.search).locale || "zhCN",
+  // 配置语言包（注意是messages 不是message）
+  messages: {
+    zhCN: { message: zhCN },
+    enUS: { message: enUS },
+  },
+});
 
 // 全局注册 自定义 font 图标
 const IconFont = Icon.createFromIconfontCN({
@@ -72,6 +93,7 @@ const IconFont = Icon.createFromIconfontCN({
 Vue.component("IconFont", IconFont); // 注册
 
 new Vue({
+  i18n, // 传入i18n实例
   router,
   store,
   render: (h) => h(App),
