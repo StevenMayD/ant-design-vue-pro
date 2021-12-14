@@ -64,6 +64,13 @@ Vue.use(Form);
 Vue.use(Input);
 Vue.use(Select);
 
+// 全局注册 自定义 font 图标
+const IconFont = Icon.createFromIconfontCN({
+  scriptUrl: "//at.alicdn.com/t/font_3010639_7juppvapca4.js", // 在 iconfont.cn 上生成
+});
+
+Vue.component("IconFont", IconFont); // 注册
+
 new Vue({
   router,
   store,
