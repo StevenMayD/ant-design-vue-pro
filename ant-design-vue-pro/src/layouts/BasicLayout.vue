@@ -1,7 +1,7 @@
 <template>
   <!-- 根据不同的配置 动态改变样式 -->
   <div :class="[`nav-theme-${navTheme}`, `nav-layout-${navLayout}`]">
-    <a-layout id="components-layout-demo-side" style="min-height: 100vh">
+    <a-layout class="components-layout-demo-side" style="min-height: 100vh">
       <!-- 
         v-if当导航设置为左边显示是 才显示侧边菜单
         :theme 侧边栏主题色
@@ -92,11 +92,10 @@ export default {
   不会影响到子组件（非根结点）的样式
 -->
 <style scoped>
-/* #components-layout-demo-side .logo {
-  height: 64px;
-  background: #ffffff;
-  margin: 16px;
-} */
+/* 通过深度选择器，设置components-layout-demo-side下的 .ant-menu-dark .ant-menu-item-selected样式 */
+.components-layout-demo-side >>> .ant-menu-dark .ant-menu-item-selected {
+  color: bisque;
+}
 .trigger {
   padding: 0px 20px;
   line-height: 64px;

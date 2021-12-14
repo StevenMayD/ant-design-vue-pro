@@ -1,12 +1,35 @@
+const path = require("path");
+const AntDesignThemePlugin = require("antd-theme-webpack-plugin");
+
+const options = {
+  antDir: path.join(__dirname, "./node_modules/ant-design-vue"),
+  stylesDir: path.join(__dirname, "./src"), // 将src下的样式文件都进行打包加载 在线编译
+  varFile: path.join(
+    __dirname,
+    "./node_modules/ant-design-vue/lib/style/themes/default.less"
+  ), // 存放了antd组件库的所有变量
+  themeVariables: ["@primary-color"], // 主题色
+  // indexFileName: "index.html", // 不用它动态生成 我们自己管理
+  generateOnce: false,
+};
+// 此变量用于配置我们的webpack
+const themePlugin = new AntDesignThemePlugin(options);
+
 module.exports = {
   // 选项...
   css: {
     loaderOptions: {
       less: {
+        modifyVars: {
+          "primary-color": "#1DA57A", // 全局生效的主题颜色配置
+        },
         // 这里的选项会传递给 css-loader
         javascriptEnabled: true, //允许链式调用的换行
       },
     },
+  },
+  configureWebpack: {
+    plugins: [themePlugin],
   },
   chainWebpack: (config) => {
     const svgRule = config.module.rule("svg");
