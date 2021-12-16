@@ -6,12 +6,19 @@
     <a-date-picker></a-date-picker>
     <!-- 分析页使用chart图表组件 -->
     <Chart :option="chartOption" style="height: 400px" />
+    <!-- 高亮展示代码 -->
+    <pre v-highlightjs="chartCode">
+      <!-- html形式展示 -->
+      <code class="html"></code>
+    </pre>
   </div>
 </template>
 
 <script>
 // import random from "lodash/random";
 import Chart from "../../components/Chart";
+import chartCode from "!!raw-loader!./../../components/Chart"; // 拿到chart文件的导出字符串
+
 // 接口请求库
 // import axios from "axios"; // 先安装 npm install --save axios
 import request from "../../utils/request";
@@ -20,6 +27,7 @@ export default {
   data() {
     return {
       chartOption: {},
+      chartCode,
     };
   },
   mounted() {

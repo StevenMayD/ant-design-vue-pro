@@ -6,6 +6,8 @@ import VueI18 from "vue-i18n"; // 引入 针对自定义封装的组件 做国�
 import enUS from "./locale/enUS"; // 导入本地国际化语言包
 import zhCN from "./locale/zhCN";
 import queryString from "query-string"; // 解析url的第三方库
+import VueHighlightJS from "vue-highlightjs"; // 高亮组件
+import "highlight.js/styles/github.css"; // 高亮组件样式（github代码风格）
 
 // 开始在入口文件里引入组件
 // import Antd from 'ant-design-vue';
@@ -74,6 +76,7 @@ Vue.use(LocaleProvider); // 注册组件
 Vue.use(Dropdown); // 下拉框
 Vue.use(DatePicker); //日历组件
 Vue.use(VueI18);
+Vue.use(VueHighlightJS); // 高亮展示组件
 
 const i18n = new VueI18({
   // 从url中取语言参数 需要用到一个三方库解析url
