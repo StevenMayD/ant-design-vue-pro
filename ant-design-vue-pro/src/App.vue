@@ -18,6 +18,7 @@
 import zhCN from "ant-design-vue/lib/locale-provider/zh_CN"; // 导入中文包
 import enUS from "ant-design-vue/lib/locale-provider/en_US"; // 导入英文包
 import moment from "moment"; // moment包的语言切换 切换组件库的语言
+import "moment/locale/zh-cn"; // 只引入moment的中文包，打包时只会打中文包
 
 export default {
   data() {

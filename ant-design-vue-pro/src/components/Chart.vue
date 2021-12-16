@@ -13,7 +13,12 @@
 <script>
 // import echarts from "echarts";
 // 还非得这样引入：因为echarts 5.0版本接口更新后，echarts引入方式import echarts from ‘echarts’变了
-import * as echarts from "echarts";
+import * as echarts from "echarts"; // 这样会将echarts包全部引入 比较大
+
+// 按需引入echarts包，只使用柱状图 就只引入柱状图包
+// import * as echarts from "echarts/lib/echarts"; // 引入必须的核心包（引擎）
+// import "echarts/lib/chart/bar"; // 引入柱状图
+// import "echarts/lib/component/title"; // 配置title的相关代码
 
 /*  引入监听dom尺寸变化的第三方库：
     addListener: 添加事件监听，用于在监听到dom尺寸变化后 重新渲染chart图表
@@ -23,7 +28,8 @@ import * as echarts from "echarts";
 */
 import { addListener, removeListener } from "resize-detector"; // 前提要安装：npm install resize-detector
 // 防抖动函数: 由于resize变化极短的时间里持续变化，resize()方法会调用很多次 （去抖：如果在间隔时间内，发生新的keydown事件，则不触发Ajax通信，并且重新开始计时。）
-import debounce from "lodash/debounce";
+import debounce from "lodash/debounce"; // 引入lodash中具体的方法，而不是整个lodash，这样包会小一点
+// import { debounce } from "lodash"; // 这样会将整个loadsh打包进来
 
 export default {
   props: {

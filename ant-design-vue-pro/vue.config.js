@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const path = require("path");
 const AntDesignThemePlugin = require("antd-theme-webpack-plugin");
 
@@ -29,7 +30,16 @@ module.exports = {
     },
   },
   configureWebpack: {
-    plugins: [themePlugin],
+    plugins: [themePlugin, new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)],
+    // 图标的按需加载(组件中使用到的图标无法一一配置 故不使用了)
+    // resolve: {
+    //   alias: {
+    //     "@ant-design/icons/lib/dist$": path.resolve(
+    //       __dirname,
+    //       "./src/icons.js"
+    //     ),
+    //   },
+    // },
   },
   chainWebpack: (config) => {
     const svgRule = config.module.rule("svg");
