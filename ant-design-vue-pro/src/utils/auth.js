@@ -1,10 +1,12 @@
 /*  37 | 如何使用路由管理用户权限
     auth.js 用于放置做权限校验的函数
 */
+const currentAuth = ["admin"];
+export { currentAuth };
 
 // 获取当前用户权限
 export function getCurrentAuthority() {
-  return ["admin"];
+  return currentAuth;
 }
 
 // 权限校验：如果当前用户权限属于 待验证的权限authority范围 则范围true
