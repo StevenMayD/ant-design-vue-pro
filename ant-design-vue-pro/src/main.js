@@ -3,7 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store"; // 这样能直接找到store文件夹下的index.js文件，也可以精确指定 ./store/index.js
 import VueI18 from "vue-i18n"; // 引入 针对自定义封装的组件 做国际化的库
-import enUS from "./locale/enUS"; // 导入本地国际化语言包
+import enUS from "./locale/enUS"; // 导入本地自定义组件和文案的国际化语言包
 import zhCN from "./locale/zhCN";
 import queryString from "query-string"; // 解析url的第三方库
 import VueHighlightJS from "vue-highlightjs"; // 高亮组件
